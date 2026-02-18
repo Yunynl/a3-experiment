@@ -1,9 +1,90 @@
 <!DOCTYPE html>
-<div id="container"></div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualization Perception Study</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; background: #f4f4f9; }
+
+        nav { background: #2c3e50; color: white; padding: 10px 20px; display: flex; gap: 20px; }
+        nav span { cursor: pointer; opacity: 0.8; font-weight: bold; }
+        nav span:hover { opacity: 1; }
+
+        .screen { display: none; flex: 1; overflow: hidden; }
+        .active { display: flex; }
+
+        .split-view { display: flex; width: 100%; height: 100%; }
+
+        .left-panel { width: 320px; background: white; border-right: 1px solid #ddd; padding: 40px 20px; display: flex; flex-direction: column; gap: 25px; box-shadow: 2px 0 5px rgba(0,0,0,0.05); }
+
+        .right-panel { flex: 1; display: flex; align-items: center; justify-content: center; background: #fff; position: relative; }
+        #container { width: 90%; height: 80%; }
+
+
+        input[type="number"] { padding: 12px; font-size: 18px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 12px; font-size: 16px; cursor: pointer; border: none; border-radius: 4px; background: #3498db; color: white; font-weight: bold; }
+        button:hover { background: #2980b9; }
+        button.secondary { background: #95a5a6; }
+
+
+        .axis text { display: none; }
+        .trial-info { font-size: 14px; color: #7f8c8d; margin-bottom: 5px; }
+
+        #screen-results { flex-direction: column; align-items: center; padding: 40px; overflow-y: auto; }
+        textarea { width: 100%; max-width: 800px; height: 300px; margin: 20px 0; font-family: monospace; border: 1px solid #ddd; padding: 10px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <span onclick="showScreen('screen-start')">Home</span>
+    <span onclick="showScreen('screen-experiment')">Experiment</span>
+    <span onclick="showScreen('screen-results')">Data View</span>
+</nav>
+
+
+<div id="screen-start" class="screen active" style="flex-direction: column; align-items: center; justify-content: center;">
+    <h1>Perception Experiment</h1>
+    <p>In this study, you will see charts with two segments marked by <b>dots</b>.</p>
+    <p>Your task: <b>What percentage is the smaller value of the larger value?</b></p>
+    <button onclick="startExperiment()" style="padding: 15px 40px; font-size: 20px;">Start Experiment</button>
+</div>
+
+
+<div id="screen-experiment" class="screen">
+    <div class="split-view">
+        <div class="left-panel">
+            <div class="trial-info">Progress: <span id="count">0</span> / 60</div>
+            <h3>Your Guess</h3>
+            <label for="guess">Enter percentage (0 - 100):</label>
+            <input type="number" id="guess" placeholder="e.g. 45" autofocus>
+
+            <button onclick="submitGuess()">Submit Answer</button>
+            <hr style="width: 100%; border: 0; border-top: 1px solid #eee;">
+            <button class="secondary" onclick="restartExperiment()">Restart Experiment</button>
+        </div>
+        <div class="right-panel">
+            <div id="container"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="screen-results" class="screen">
+    <h2>Results Complete</h2>
+    <p>Below is your raw experiment data in CSV format.</p>
+    <textarea id="output" readonly></textarea>
+    <div style="display: flex; gap: 15px;">
+        <button onclick="downloadCSV()" style="background: #27ae60;">Download CSV File</button>
+        <button class="secondary" onclick="restartExperiment()">Run Again</button>
+    </div>
+</div>
+
 <script type="module">
-
-import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-
-console.log(d3);
-
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+    window.d3 = d3;
 </script>
+<script src="charts.js"></script>
+<script src="experiment.js"></script>
+</body>
+</html>

@@ -16,13 +16,16 @@ window.startExperiment = function() {
     // Generate 60 trials (20 per type)
     types.forEach(t => {
         for(let i=0; i<20; i++) {
-            const data = Array.from({length: 7}, () => Math.floor(Math.random() * 85) + 15);
-            let idxs = d3.shuffle([0, 1, 2, 3, 4, 5, 6]);
+            // 5-10 data points per trial, values 1-100 (non-zero)
+            const numPoints = Math.floor(Math.random() * 6) + 5;
+            const data = Array.from({length: numPoints}, () => Math.floor(Math.random() * 100) + 1);
+            let idxs = d3.shuffle(d3.range(numPoints));
             const indices = [idxs[0], idxs[1]];
 
             const v1 = data[indices[0]];
             const v2 = data[indices[1]];
-            const truePercent = (Math.min(v1, v2) / Math.max(v1, v2)) * 100;
+            // Round to nearest whole percentage
+            const truePercent = Math.round((Math.min(v1, v2) / Math.max(v1, v2)) * 100);
 
             trials.push({ type: t, data, indices, truePercent });
         }
@@ -36,6 +39,7 @@ window.startExperiment = function() {
 function loadTrial() {
     const trial = trials[currentIdx];
     document.getElementById("count").innerText = currentIdx + 1;
+    document.getElementById("total-trials").innerText = trials.length;
     document.getElementById("guess").value = "";
     document.getElementById("guess").focus();
 
@@ -55,12 +59,12 @@ window.submitGuess = function() {
 
     const trial = trials[currentIdx];
     const diff = Math.abs(guess - trial.truePercent);
-    // Cleveland-McGill log2 error formula
+    // Cleveland-McGill log2 error formula: log2(|reported - true| + 1/8)
     const error = Math.max(0, Math.log2(diff + 0.125));
 
     results.push({
         type: trial.type,
-        truePercent: trial.truePercent.toFixed(2),
+        truePercent: trial.truePercent,
         reportedPercent: guess,
         error: error.toFixed(4)
     });

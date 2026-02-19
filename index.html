@@ -40,8 +40,20 @@
     <span onclick="showScreen('screen-start')">Home</span>
     <span onclick="showScreen('screen-experiment')">Experiment</span>
     <span onclick="showScreen('screen-results')">Data View</span>
+    <span onclick="showScreen('screen-analysis')">Graph Analysis</span>
 </nav>
 
+<div id="tooltip"></div>
+<div id="screen-analysis" class="screen">
+    <div style="width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+        <h2>Generate Analysis Graph</h2>
+        <p>Paste your master CSV data below to generate the Error Bar chart:</p>
+        <textarea id="analysis-input" placeholder="vizType,truePercent,reportedPercent,error..."></textarea>
+        <button onclick="generateAnalysisGraph()" style="background: #e67e22; margin-top: 10px;">Generate Graph</button>
+
+        <div id="analysis-chart-container" style="width: 100%; max-width: 800px; height: 500px; background: white; margin-top: 30px; border: 1px solid #ddd;"></div>
+    </div>
+</div>
 
 <div id="screen-start" class="screen active" style="flex-direction: column; align-items: center; justify-content: center;">
     <h1>Perception Experiment</h1>

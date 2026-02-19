@@ -31,8 +31,9 @@ function drawBarChart(data, indices) {
         .attr("width", x.bandwidth()).attr("height", d => height - y(d))
         .attr("fill", "none").attr("stroke", "#2c3e50").attr("stroke-width", 2);
 
+    // Place dots below bars at the baseline
     svg.selectAll("circle").data(indices).enter().append("circle")
-        .attr("cx", d => x(d) + x.bandwidth()/2).attr("cy", d => y(data[d]) + 20)
+        .attr("cx", d => x(d) + x.bandwidth()/2).attr("cy", height + 20)
         .attr("r", 6).attr("fill", "black");
 }
 

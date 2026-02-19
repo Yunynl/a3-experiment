@@ -6,11 +6,11 @@ link to the experiment:
 
 Experiment Overview
 ===
-For this project, we're running a controlled experiment to test human graphical perception.
-The Question: "What percentage is the smaller value of the larger value?"
-The Setup: Participants were shown 60 trials in a randomized order (20 Bar, 20 Pie, 20 Stacked Bar).
-The Data: Each trial consisted of 5–10 random data points. Two points were marked with black dots for comparison.
-Participants: 10 users participated, providing a total of 600 data points for analysis.
+- For this project, we're running a controlled experiment to test human graphical perception.
+- The Question: "What percentage is the smaller value of the larger value?"
+- The Setup: Participants were shown 60 trials in a randomized order (20 Bar, 20 Pie, 20 Stacked Bar).
+- The Data: Each trial consisted of 5–10 random data points. Two points were marked with black dots for comparison.
+- Participants: 10 users participated, providing a total of 600 data points for analysis.
 
 The Hypothesis
 ===

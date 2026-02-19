@@ -2,7 +2,7 @@ Assignment 3 - Replicating a Classic Experiment
 ===
 Authors: Zihan Li, Wentao Yu
 
-link to the experiment:
+link to the experiment:https://yunynl.github.io/a3-experiment/
 
 Experiment Overview
 ===
